@@ -18,3 +18,10 @@
 - **Accepted:** Schema design, docker-compose, connection pool
 - **Rejected:** None
 - **Verification:** Ran docker ps confirmed container up, ran SHOW TABLES confirmed all 3 tables created
+
+## Entry 4 — Controllers and Routes
+- **Date:** 2026-02-28
+- **Prompt used:** "Implement Express controllers for auth (register/login), car listing, and booking with JWT middleware"
+- **Accepted:** All controllers, middleware, updated routes
+- **Rejected:** None
+- **Verification:** curl POST /api/auth/register returned 201, curl GET /api/cars returned 3 cars from DB
