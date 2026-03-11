@@ -139,7 +139,7 @@ Use Case Diagram describes the main interactions between users and the Travel Na
 
    Guests can view promotions and register for an account, while membership users can make reservations and manage their bookings. Back-end staff interact with the system to monitor reservations and generate reports for business analysis. The Travel Naja system also communicates with external agencies to retrieve travel availability data and with the bank gateway to process credit card payments.  
    
-![Data Flow Diagram Level 0](https://github.com/ICT-Mahidol/2025-ITCS383-JianCha/blob/a9c83d4dcd2184c5404896d35fe4bd4c2aab6b13/images/Diagrams/JianCha-DFD-Level0.png)
+![Data Flow Diagram Level 0](https://github.com/ICT-Mahidol/2025-ITCS383-JianCha/blob/23776b4346442564617aafc9a6ff82f706ced459/images/Diagrams/JianCha-DFD-Level0.png)
 
 2. ### Data Flow Diagram Level 1
 
@@ -150,4 +150,4 @@ Use Case Diagram describes the main interactions between users and the Travel Na
    This level of decomposition provides a clearer view of how the system manages user data, reservation information, and reporting functions while integrating with external travel service providers.  
    
 
-![Data Flow Diagram Level 1](https://github.com/ICT-Mahidol/2025-ITCS383-JianCha/blob/a9c83d4dcd2184c5404896d35fe4bd4c2aab6b13/images/Diagrams/JianCha-DFD-Level1.png)
+![Data Flow Diagram Level 1](https://github.com/ICT-Mahidol/2025-ITCS383-JianCha/blob/23776b4346442564617aafc9a6ff82f706ced459/images/Diagrams/JianCha-DFD-Level1.png)
