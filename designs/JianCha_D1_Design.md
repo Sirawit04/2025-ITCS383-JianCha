@@ -67,7 +67,7 @@
 
 Use Case Diagram describes the main interactions between users and the Travel Naja System. It shows what functions each actor can perform and how they interact with the system.  
 
-![Use Case Diagram](https://github.com/ICT-Mahidol/2025-ITCS383-JianCha/blob/a9c83d4dcd2184c5404896d35fe4bd4c2aab6b13/images/Diagrams/JianCha-Use-Case.png)
+![Use Case Diagram](https://github.com/ICT-Mahidol/2025-ITCS383-JianCha/blob/9fb337c07eec613776c17a29f32a72e38a58ed1f/images/Diagrams/JianCha-Use-Case.png)
 
 **1\. Requirements Alignment:**
 
