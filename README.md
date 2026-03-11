@@ -2,7 +2,7 @@
 
 ## 🌐 Live Demo
 
--  https://jianchatravelnaja.vercel.app/
+- https://jianchatravelnaja.vercel.app/
 
 ### 🔑 Test Accounts
 
@@ -11,7 +11,7 @@
 | Staff | staff@jiancha.com | staff1234 |
 | Member | (register via app) | - |
 
-This repository contains a full-stack car rental reservation system built as part of the Travel Naja platform.  It demonstrates a simple RESTful API backed by a MySQL database and a modern React/Tailwind frontend using shadcn/ui components.  The backend handles user authentication, car listings, bookings, cancellations, and staff reporting.
+This repository contains a full-stack car rental reservation system built as part of the Travel Naja platform. It demonstrates a simple RESTful API backed by a MySQL database and a modern React/Tailwind frontend using shadcn/ui components. The backend handles user authentication, car listings, bookings, cancellations, staff reporting, and promotion management.
 
 ---
 
@@ -28,12 +28,13 @@ This repository contains a full-stack car rental reservation system built as par
 
 ## 🧱 Tech Stack
 
-| Layer     | Technology                                      |
-|-----------|-------------------------------------------------|
-| Frontend  | React, Vite, Tailwind CSS (v3), shadcn/ui       |
-| Backend   | Node.js (>=20), Express, JWT, bcrypt            |
-| Database  | MySQL (dockerized via `docker-compose`)         |
-| Dev Ops   | Docker, Git                                     |
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React, Vite, Tailwind CSS (v3), shadcn/ui |
+| Backend | Node.js (>=20), Express, JWT, bcrypt |
+| Database | MySQL (dockerized via `docker-compose`) |
+| Hosting | Vercel (frontend), Render (backend), Clever Cloud (MySQL) |
+| Dev Ops | Docker, Git, GitHub Actions |
 
 ---
 
@@ -86,7 +87,8 @@ npm run dev
 If you are running this project inside a **GitHub Codespace**, after starting the backend:
 
 1. Open the **PORTS** tab in the Codespace UI.
-2. Right‑click on port **8080** and set **Visibility → Public**.
+2. Right-click on port **8080** and set **Visibility → Public**.
+3. Re-run step 4 every time you open a new Codespace (URL changes each time).
 
 Otherwise, the frontend won't be able to reach the backend because of tunnel authentication.
 
@@ -101,85 +103,166 @@ Otherwise, the frontend won't be able to reach the backend because of tunnel aut
 
 ## 📡 API Endpoints
 
-| Method | Endpoint                             | Auth Required | Description                                      |
-|--------|--------------------------------------|---------------|--------------------------------------------------|
-| POST   | `/api/auth/register`                 | No            | Create a new member account                      |
-| POST   | `/api/auth/login`                    | No            | Authenticate and receive JWT                     |
-| GET    | `/api/cars`                          | No            | List available cars (query: `?location=&type=`)  |
-| GET    | `/api/cars/:id`                      | No            | Get details for a single car                     |
-| GET    | `/api/bookings`                      | Yes (member)  | Retrieve bookings for the logged‑in user        |
-| POST   | `/api/bookings`                      | Yes (member)  | Create a new booking                             |
-| DELETE | `/api/bookings/:id`                  | Yes (member)  | Cancel a booking owned by the user               |
-| GET    | `/api/staff/dashboard`               | Yes (staff)   | Overview stats for staff (bookings, revenue)    |
-| GET    | `/api/staff/reports/reservations`    | Yes (staff)   | Full reservation report for staff                |
+### Authentication
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| POST | `/api/auth/register` | No | Create a new member account |
+| POST | `/api/auth/login` | No | Authenticate and receive JWT |
 
-*All authenticated endpoints require a bearer JWT in the `Authorization` header.*
+### Cars
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/cars` | No | List available cars (`?location=&type=`) |
+| GET | `/api/cars/:id` | No | Get details for a single car |
+
+### Bookings
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/bookings` | Member | Retrieve bookings for logged-in user |
+| POST | `/api/bookings` | Member | Create a new booking (supports `promo_code`) |
+| DELETE | `/api/bookings/:id` | Member | Cancel a booking |
+| PUT | `/api/bookings/:id/pay` | Member | Confirm payment for a booking |
+
+### User Profile
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/users/profile` | Member | Get current user profile |
+| PUT | `/api/users/profile` | Member | Update user name |
+
+### Staff (Admin)
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/staff/dashboard` | Staff | Overview stats (bookings, revenue, cars) |
+| GET | `/api/staff/reports/reservations` | Staff | Full reservation report |
+| GET | `/api/staff/cars` | Staff | List all cars including unavailable |
+| POST | `/api/staff/cars` | Staff | Add new car |
+| PUT | `/api/staff/cars/:id` | Staff | Update car details |
+| DELETE | `/api/staff/cars/:id` | Staff | Delete car |
+| PUT | `/api/staff/cars/:id/promotion` | Staff | Set promotion discount on car |
+| DELETE | `/api/staff/reset` | Staff | Reset all bookings and restore cars |
+
+### Local Guides
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/guides` | No | List approved guides |
+| POST | `/api/guides/request` | No | Submit guide request |
+| PUT | `/api/guides/:id/approve` | Staff | Approve guide application |
+| PUT | `/api/guides/:id/reject` | Staff | Reject guide application |
+
+### Health
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/health` | No | API health check |
+
+> All authenticated endpoints require `Authorization: Bearer <token>` header.
 
 ---
 
-## 🧪 Test Accounts
+## 🎟️ Promo Codes
 
-You can register new users via the frontend or API.  The database has a `role` field (`member` or `staff`).  To create a staff user manually after registration:
-
-```sql
-UPDATE users SET role = 'staff' WHERE email = 'you@example.com';
-```
-
-### Example credentials
-
-| Role   | Email                | Password |
-|--------|----------------------|----------|
-| member | member@example.com   | password |
-| staff  | staff@example.com    | password |
-
-*(Insert or update these records directly in the `users` table.)*
+| Code | Discount |
+|------|----------|
+| `ONLYTRAVELNAJA` | 30% off |
+| `GUBONUS` | 30% off |
+| `MEGA` | 30% off |
 
 ---
 
 ## ⚙️ Running Backend Tests
 
 ```bash
+# Make sure Docker is running first
+docker compose up -d
+
 cd implementations/backend
 npm test
 ```
 
-Tests are written with Jest and cover authentication and booking logic.
+### ✅ Test Results
+
+```
+Test Suites: 4 passed, 4 total
+Tests:       35 passed, 35 total
+Coverage:    79.52% statements
+Time:        ~3s
+```
+
+| Test Suite | What is tested |
+|---|---|
+| auth.test.js | Register, login, duplicate email, missing fields |
+| car.test.js | List cars, filter by location/type, get by ID, 404 |
+| booking.test.js | Auth guard, create booking, cancel, pay, promo code, date validation |
+| staff.test.js | Dashboard stats, reports, car CRUD, reset DB |
+
+### ⚠️ Common Issue — Tests Failing with 500 Errors
+
+**Root Cause:** MySQL not running or `.env` credentials don't match `docker-compose.yml`
+
+```bash
+# Check Docker is running
+docker ps
+
+# Check .env credentials match docker-compose.yml
+cat implementations/backend/.env | grep DB_PASSWORD
+# Must match MYSQL_PASSWORD in docker-compose.yml
+```
+
+---
+
+## 🧪 Test Accounts
+
+| Role | Email | Password |
+|------|-------|----------|
+| Staff | staff@jiancha.com | staff1234 |
+| Member | Register via the app | - |
+
+To create a staff user manually:
+```sql
+UPDATE users SET role = 'staff' WHERE email = 'you@example.com';
+```
 
 ---
 
 ## 📁 Repository Structure
 
-```plain
+```
 .
-├── docker-compose.yml           # MySQL service definition
-├── implementations
-│   ├── backend
-│   │   ├── src
-│   │   │   ├── controllers
-│   │   │   ├── database
-│   │   │   ├── middleware
-│   │   │   ├── routes
-│   │   │   └── app.js
-│   │   ├── tests
-│   │   ├── package.json
-│   │   └── jest.config.js
-│   └── frontend
-│       ├── public
-│       ├── src
-│       │   ├── components
-│       │   ├── pages
-│       │   ├── services
-│       │   └── App.jsx
-│       ├── package.json
-│       └── tailwind.config.js
-└── README.md                    # ← you are here
+├── docker-compose.yml
+├── designs/                        # D1 - C4 diagrams
+├── implementations/
+│   ├── backend/
+│   │   ├── src/
+│   │   │   ├── controllers/
+│   │   │   ├── routes/
+│   │   │   ├── middleware/
+│   │   │   └── database/
+│   │   └── tests/
+│   └── frontend/
+│       └── src/
+│           ├── pages/
+│           ├── components/
+│           └── services/
+├── AGENTS.md
+├── Jiancha_D3_AILog.md
+├── Jiancha_D4_QualityReport.md
+└── README.md
 ```
 
 ---
 
 ## 🎯 Notes
 
-- The service is intentionally minimal and structured for educational/demo purposes.
-- Feel free to extend with hotels, flights, or other Travel Naja modules.
+- Rental period is limited to **30 days**. Contact admin for long-term rentals.
+- Past dates cannot be selected for pickup.
+- Payment is simulated (no real payment gateway).
+- The service is structured for educational/demo purposes.
 
-Happy coding! 🚗💨
+Thank you from Jiancha Group
+```
+6688009	Sunattha	Boonla-or
+6688076	Kunruethai	Patimapornchai
+6688095	Tinakome	Rasripenngam
+6688104	 Phubase	Sangliamthong
+6688137	Natnicha	Uppariputthangkul
+6688163	Aroonrat	Choochue
+---
