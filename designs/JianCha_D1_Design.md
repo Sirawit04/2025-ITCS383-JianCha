@@ -127,6 +127,7 @@ Use Case Diagram describes the main interactions between users and the Travel Na
 1. ### Data Flow Diagram Level 0
 
    The **DFD Level 0 diagram** presents the high-level view of the Travel Naja system as a single process. It shows how the main actors interact with the platform and how the system communicates with external services. The primary actors include **Guest, Membership User, and Back-end Staff**, while the external systems include **Flight Agency, Car Agency, Hotel Agency, and the Bank Gateway**.  
+
    Guests can view promotions and register for an account, while membership users can make reservations and manage their bookings. Back-end staff interact with the system to monitor reservations and generate reports for business analysis. The Travel Naja system also communicates with external agencies to retrieve travel availability data and with the bank gateway to process credit card payments.  
    
 ![Data Flow Diagram Level 0](https://github.com/ICT-Mahidol/2025-ITCS383-JianCha/blob/a9c83d4dcd2184c5404896d35fe4bd4c2aab6b13/images/Diagrams/JianCha-DFD-Level-0.png)
@@ -134,7 +135,9 @@ Use Case Diagram describes the main interactions between users and the Travel Na
 2. ### Data Flow Diagram Level 1
 
    The **DFD Level 1 diagram** expands the system into multiple functional processes that represent the main operations of the platform. These processes include **registering accounts, logging in, browsing available cars, managing cars, viewing promotions, managing payment details, updating user profiles, creating reservations, viewing reservation records, and generating reservation reports**.  
+
    Each process handles specific data inputs from users and interacts with the system database to store or retrieve information. For example, the reservation process collects booking details from membership users and communicates with external agencies to confirm availability, while the payment process interacts with the bank gateway to complete credit card transactions.  
+   
    This level of decomposition provides a clearer view of how the system manages user data, reservation information, and reporting functions while integrating with external travel service providers.  
    
 
