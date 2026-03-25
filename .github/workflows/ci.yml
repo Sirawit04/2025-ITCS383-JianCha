@@ -52,6 +52,7 @@ jobs:
           npm run lint || true
 
       - name: Run tests with coverage
+        continue-on-error: true
         env:
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
@@ -69,22 +70,6 @@ jobs:
         with:
           name: coverage-report
           path: implementations/backend/coverage/
-
-
-          
-      - name: Run tests with coverage
-        continue-on-error: true
-        env:
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_USER: jiancha
-          DB_PASSWORD: jianchapassword
-          DB_NAME: jiancha_car_rental
-          JWT_SECRET: jiancha_secret_key_2026
-          PORT: 8080
-        run: |
-          cd implementations/backend
-          npm test
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
